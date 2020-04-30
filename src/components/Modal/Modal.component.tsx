@@ -6,49 +6,29 @@ import Fade from '@material-ui/core/Fade';
 import { useStyles } from './modal.styles';
 
 type Props = {
-    header: string,
-    children: React.ReactNode,
-    footer: React.ReactNode
+    open: boolean,
+    children: React.ReactNode
 }
 
 const Modal = (props: Props) => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     return (
         <div>
-        <button type="button" onClick={handleOpen}>
-            {props.header}
-        </button>
         <TransitionModal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={open}
-            onClose={handleClose}
+            open={props.open}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
             timeout: 500,
             }}
         >
-            <Fade in={open}>
-                <>
-                    <div className={classes.paper}>
-                        {props.children}
-                    </div>
-                    <div className={classes.paper}>
-                        {props.footer}
-                    </div>
-                </>
+            <Fade in={props.open}>
+                <div className={classes.paper}>
+                    {props.children}
+                </div>
             </Fade>
         </TransitionModal>
         </div>

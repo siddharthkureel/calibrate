@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { colors } from 'src/constants';
 
 const drawerWidth = 240;
 
@@ -22,6 +23,7 @@ export const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      background: colors.primary
     },
     appBarShift: {
       marginLeft: drawerWidth,
