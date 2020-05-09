@@ -4,14 +4,22 @@ import { Formik, Form } from 'formik';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
 
 import Modal from 'src/components/Modal';
+import { clientActions } from 'src/redux/actions';
 import { firebase } from 'src/firebase';
 import { initialValues, validationSchema, Data } from './addClient.config';
 import { useStyles } from './addClient.styles';
 import Step1 from './Steps/Step1';
 import Step2 from './Steps/Step2';
 import Step3 from './Steps/Step3';
+
+const { addClient } = clientActions;
+
+type Props = {
+    addClient: (uid: string, data: Data) => {}
+}
 
 type FormProps = {
     errors: Data,
@@ -21,14 +29,14 @@ type FormProps = {
 }
 
 
-const AddClient = () => {
+const AddClient = (props: Props) => {
     const [create, setCreate] = useState<boolean>(false);
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState<number>(1);
     const handleNext = () => {
        return setStep(step + 1)
     }
     const classes = useStyles();
-    const valid = step-1;
+    const valid = step - 1;
     const handleCancel = (resetForm: any) =>{
         setCreate(!create)
         resetForm()
@@ -43,7 +51,6 @@ const AddClient = () => {
             <Modal open={create}>
             <Container component="main" maxWidth="xs">
             <div className={classes.containerGroup} >
-                
                 <CssBaseline />
                 <div className={classes.paper}></div>    
                     <Formik 
@@ -51,7 +58,6 @@ const AddClient = () => {
                         validationSchema = {validationSchema[valid]}
                         onSubmit={async (data, { setSubmitting })=>{
                             setSubmitting(true);
-                            console.log(data)
                             setSubmitting(false);
                     }}
                     >{({ errors, isSubmitting, values, resetForm }: FormProps)=>{
@@ -67,20 +73,20 @@ const AddClient = () => {
                                 {step > 1 ?
                                     <Button onClick={()=>setStep(step-1)} variant="outlined" color="secondary">
                                         back
-                                    </Button>
+                                    </Button> 
                                     :
                                     <Button onClick={()=>handleCancel(resetForm)} variant="outlined" color="secondary">
                                         Cancel
                                     </Button>
                                 }
                                 {step < 3 ?
-                                <Button disabled={!truthy} onClick={()=>handleNext()} type="submit" variant="contained" color="primary" >
-                                    Next
-                                </Button>
-                                :
-                                <Button disabled={isSubmitting} type="submit" variant="contained" color="primary" >
-                                    Submit
-                                </Button>
+                                    <Button disabled={!truthy} onClick={()=>handleNext()} type="submit" variant="contained" color="primary" >
+                                        Next
+                                    </Button>
+                                    :
+                                    <Button disabled={isSubmitting} type="submit" variant="contained" color="primary" >
+                                        Submit
+                                    </Button>
                                 }
                             </div>
                         </Form>
@@ -92,4 +98,4 @@ const AddClient = () => {
     )
 }
 
-export default AddClient;
+export default connect(null, { addClient })(AddClient);

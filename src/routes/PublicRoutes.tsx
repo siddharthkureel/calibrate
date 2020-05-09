@@ -2,29 +2,29 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 interface IProps {
-    user: firebase.User | null,
     component: React.FC,
+    loggedIn?: boolean,
     restricted: boolean,
     [x:string]: any
 }
 
 
 const PublicRoutes: React.FC<IProps>  = ({
-    user,
+    loggedIn,
     component: Comp,
     ...rest
 }) => {
     return <Route {...rest} component={(props: JSX.IntrinsicAttributes & { children?: React.ReactNode; })=>(
         rest.restricted ?
-            ( user ?
+            ( loggedIn ?
                 <Redirect to="/dashboard"/>
                 :
                 // @ts-ignore 
-                <Comp {...props} user={user}/>
+                <Comp {...props}/>
             )
         :
         // @ts-ignore 
-        <Comp {...props} user={user}/>
+        <Comp {...props}/>
     )}/>
 };
 

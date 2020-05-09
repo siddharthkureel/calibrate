@@ -15,7 +15,7 @@ const firebaseConfig = {
     measurementId: "G-X8V832WWSG"
 };
 
-const firebaseLooper = (snapshot: any[]) => {
+const firebaseLooper = (snapshot: firebase.database.DataSnapshot) => {
     let data: any[] = [];
     snapshot.forEach((childSnapshot)=>{
         data.push({
@@ -28,8 +28,21 @@ const firebaseLooper = (snapshot: any[]) => {
 
 firebase.initializeApp(firebaseConfig);
 const firebaseDB = firebase.database();
+
+async function onAuthStateChanged() {
+  return await new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        resolve(user);
+      } else {
+        reject(new Error('Ops!'));
+      }
+    });
+  });
+}
 export {
     firebase,
     firebaseDB,
-    firebaseLooper
+    firebaseLooper,
+    onAuthStateChanged
 }

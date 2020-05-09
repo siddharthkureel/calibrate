@@ -1,30 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-// import { createStore, applyMiddleware } from 'redux';
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
+
+import configureStore from './redux/store';
+import rootSaga from './redux/sagas';
+import { getUser } from  './redux/actions/user.action';
+import App from './App';
+
+const store = configureStore();
+store.runSaga(rootSaga)
+
+store.dispatch(getUser());
  
-import Routes from './routes';
-import { firebase } from './firebase';
-// import { rootReducer } from './redux/reducers';
 
-type Props = {
-    user: firebase.User | null;
-}
- 
-const App: React.FC<Props> = (props) => {
-    return (
-        <Router >
-            <Routes {...props}/>
-        </Router>
-    )
-}
-
-
-firebase.auth().onAuthStateChanged(user => {
-    ReactDOM.render(
-        // <Provider store={createStore(rootReducer, applyMiddleware(thunk))}>
-        // </Provider>, 
-            <App user = {user} />, 
-    document.getElementById('root'))
-})
+ReactDOM.render(
+    <Provider store = {store} >
+        <App/>
+    </Provider>, 
+document.getElementById('root'))

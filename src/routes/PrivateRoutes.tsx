@@ -2,20 +2,20 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 interface IProps {
-    user: firebase.User | null,
+    loggedIn?: boolean
     component: React.FC,
     [x:string]: any
 }
 
 const PrivateRoutes: React.FC<IProps> = ({
-    user,
+    loggedIn,
     component: Comp,
     ...rest
 }) => {
     return <Route {...rest} component={(props: any)=>(
-        user ? 
+        loggedIn ? 
         // @ts-ignore 
-        <Comp {...props} user={user}/>
+        <Comp {...props}/>
         :
         <Redirect to="/signin"/>
     )}/>

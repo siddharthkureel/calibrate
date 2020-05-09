@@ -21,5 +21,14 @@ export const colors = {
     primaryDark: '#e47100',
     primaryTranslucent:'rgba(255, 142, 30, 0.5)'
 }
-export const LOAD_CLIENT = 'LOAD CLIENT';
+//-------------------------->CLIENT<--------------------------//
+export const LOAD_CLIENTS = 'LOAD_CLIENTS';
 export const ADD_CLIENT = 'ADD_CLIENT';
+
+//-------------------------->USER<--------------------------//
+export const GET_USER = 'GET_USER';
+export const USER_SIGNIN = 'USER_SIGNIN';
+export const USER_SIGNIN_SUCCESS = 'USER_SIGNED_SUCCESS';
+export const USER_SIGNIN_FAILURE = 'USER_SIGNED_FAILURE';
+export const USER_SIGNOUT = 'USER_SIGNOUT';
+export const USER_SIGNED_OUT = 'USER_SIGNED_OUT';

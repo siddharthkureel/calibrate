@@ -34,7 +34,7 @@ const columns = [
 const Client = () => {
     return (
         <AdminLayout>
-            <AddClient/>
+            <AddClient />
             <EnhancedTable heading={'Clients'} columns={columns} rows={rows}/>
         </AdminLayout>
     )

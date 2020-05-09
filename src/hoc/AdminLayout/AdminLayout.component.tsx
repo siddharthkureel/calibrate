@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { connect } from 'react-redux';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,13 +14,19 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import SideNav from '../../components/SideNav';
-import Footer from '../../components/Footer';
+import SideNav from 'src/components/SideNav';
+import Footer from 'src/components/Footer';
 import { useStyles } from './adminLayout.styles';
+import { userActions } from 'src/redux/actions';
+import { SideNavData } from './adminLayout.config';
+
+const { userSignOut } = userActions;
 
 type Props = {
-    children?: ReactNode;
+    children?: ReactNode,
+    userSignOut: () => {}
 }
 
 const AdminLayout = (props: Props) => {
@@ -54,6 +61,9 @@ const AdminLayout = (props: Props) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <IconButton onClick={props.userSignOut} color="inherit">
+              <ExitToAppIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -69,7 +79,7 @@ const AdminLayout = (props: Props) => {
           </IconButton>
         </div>
         <Divider />
-        <SideNav/>
+        <SideNav Data={SideNavData}/>
         <Divider />
       </Drawer>
       <main className={classes.content}>
@@ -87,4 +97,4 @@ const AdminLayout = (props: Props) => {
   );
 }
 
-export default AdminLayout;
+export default connect(null, { userSignOut })(AdminLayout);
