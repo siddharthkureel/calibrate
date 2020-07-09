@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,12 +25,12 @@ import { SideNavData } from './adminLayout.config';
 const { userSignOut } = userActions;
 
 type Props = {
-    children?: ReactNode,
-    userSignOut: () => {}
+    children?: ReactNode
 }
-
+ 
 const AdminLayout = (props: Props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState<boolean>(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -61,7 +61,7 @@ const AdminLayout = (props: Props) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton onClick={props.userSignOut} color="inherit">
+          <IconButton onClick={()=>dispatch(userSignOut())} color="inherit">
               <ExitToAppIcon />
           </IconButton>
         </Toolbar>
@@ -97,4 +97,4 @@ const AdminLayout = (props: Props) => {
   );
 }
 
-export default connect(null, { userSignOut })(AdminLayout);
+export default AdminLayout;

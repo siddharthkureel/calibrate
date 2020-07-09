@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -27,12 +27,9 @@ const validationSchema = yup.object({
     .min(8, 'Password is too short - should be 8 chars minimum.')
 })
 
-type Props = {
-    userSignIn: (data: { email:string, password: string })=>{}
-}
-
-const SignIn = (props: Props) => {
+const SignIn = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,7 +49,7 @@ const SignIn = (props: Props) => {
             validationSchema = {validationSchema}
             onSubmit={async (data, { setSubmitting })=>{
                 setSubmitting(true);
-                props.userSignIn(data)   
+                dispatch(userSignIn(data));
                 setSubmitting(false);
             }}
             > 
@@ -118,4 +115,4 @@ const SignIn = (props: Props) => {
   );
 }
 
-export default connect(null, { userSignIn })(SignIn);
+export default SignIn;

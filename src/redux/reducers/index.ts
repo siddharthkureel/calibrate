@@ -4,8 +4,8 @@ import { clientReducer } from './client.reducer';
 import { userReducer } from './user.reducer';
 
 const rootReducer = combineReducers({
-  client: clientReducer,
-  userStatus: userReducer
+  clientState: clientReducer,
+  userState: userReducer
 })
 
 export default rootReducer;

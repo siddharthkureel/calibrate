@@ -8,13 +8,11 @@ import { getUser } from  './redux/actions/user.action';
 import App from './App';
 
 const store = configureStore();
-store.runSaga(rootSaga)
-
+store.runSaga(rootSaga);
 store.dispatch(getUser());
  
-
 ReactDOM.render(
     <Provider store = {store} >
         <App/>
     </Provider>, 
-document.getElementById('root'))
+document.getElementById('root'));

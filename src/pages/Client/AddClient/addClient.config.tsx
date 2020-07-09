@@ -59,3 +59,11 @@ export const getStepContent = (step: number) => {
       return 'Unknown step';
   }
 }
+
+export const trim = (data: any) => {
+  return Object.keys(data).map((k: any) => data[k] = data[k].trim());
+}
+
+export const capitalizeName = (name: string) => {
+  return name.replace(/\b(\w)/g, s => s.toUpperCase());
+}

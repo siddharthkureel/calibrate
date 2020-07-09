@@ -3,6 +3,9 @@ import 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 import 'firebase/storage';
+import { select } from 'redux-saga/effects';
+
+import { getUserId } from 'src/redux/selectors';
 
 const firebaseConfig = {
     apiKey: "AIzaSyATRs5NXQU4_OYSoM_fIPh9Bw-yfsmBqRM",
@@ -28,6 +31,8 @@ const firebaseLooper = (snapshot: firebase.database.DataSnapshot) => {
 
 firebase.initializeApp(firebaseConfig);
 const firebaseDB = firebase.database();
+const firebaseClient = (uid: string) => firebaseDB.ref('clients/' + uid);
+
 
 async function onAuthStateChanged() {
   return await new Promise((resolve, reject) => {
@@ -43,6 +48,7 @@ async function onAuthStateChanged() {
 export {
     firebase,
     firebaseDB,
+    firebaseClient,
     firebaseLooper,
-    onAuthStateChanged
+    onAuthStateChanged,
 }

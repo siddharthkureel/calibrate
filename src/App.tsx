@@ -6,7 +6,7 @@ import Routes from './routes';
 import Loading from 'src/components/Loading';
 
 const App: React.FC = () => {
-    const loading = useSelector((state: any) => state.userStatus.loading)
+    const loading = useSelector((state: any) => state.userState.loading)
     if(loading)return <Loading/>
     return (
         <Router >

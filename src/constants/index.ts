@@ -5,10 +5,10 @@ export const PATHS = {
     DASHBOARD: {
         ROOT: '/dashboard'
     },
-    CHATS: '/chats',
+    CHAT: '/chat',
     CLIENT: '/client',
     PROFILE: '/profile',
-    TASKS: '/tasks',
+    TASK: '/task',
     NUTRITION: '/nutrition',
     NOTIFICATIONS: '/notification'
 }
@@ -23,8 +23,11 @@ export const colors = {
 }
 //-------------------------->CLIENT<--------------------------//
 export const LOAD_CLIENTS = 'LOAD_CLIENTS';
+export const LOAD_CLIENTS_SUCCESS = 'LOAD_CLIENTS_SUCCESS';
+export const LOAD_CLIENTS_FAILURE = 'LOAD_CLIENTS_FAILURE';
 export const ADD_CLIENT = 'ADD_CLIENT';
-
+export const ADD_CLIENT_SUCCESS = 'ADD_CLIENT_SUCCESS';
+export const ADD_CLIENT_FAILURE = 'ADD_CLIENT_FAILURE';
 //-------------------------->USER<--------------------------//
 export const GET_USER = 'GET_USER';
 export const USER_SIGNIN = 'USER_SIGNIN';

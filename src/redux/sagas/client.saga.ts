@@ -1,30 +1,33 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
+
+import { clientActions } from '../actions/index';
+import { getUserId } from '../selectors';
 import { LOAD_CLIENTS, ADD_CLIENT } from 'src/constants';
-import { firebaseDB } from 'src/firebase';
+import { firebaseClient, firebaseLooper } from 'src/firebase';
 
-let userId: string | null = null;
-
-function loadUserId(action: any){
-    return userId = action.payload;
-}
+const { addClientSuccess, addClientFailure, loadClientsSuccess, loadClientsFailure } = clientActions;
 
 function* loadClientSaga (action: any) {
-    const uid = yield action.payload;
- }
-
-function addClientSaga (action: any) {
-   const { uid, data } = action.payload
-   return firebaseDB.ref('client/' + uid).push(data)
+   try {
+      const uid = yield select(getUserId)
+      const dataRef = yield call(() => firebaseClient(uid).once('value'))
+      const dataArray: Array<object> = firebaseLooper(dataRef)
+      yield put(loadClientsSuccess(dataArray))
+   } catch (error) {
+      
+   }
 }
 
-export function* watchAddClient () {
-    yield takeEvery(ADD_CLIENT, addClientSaga)
+function* addClientSaga (action: any) {
+   try {
+      const uid = yield select(getUserId)
+      yield call(() => firebaseClient(uid).push(action.payload))
+      yield put(addClientSuccess())
+   } catch (error) {
+      yield put(addClientFailure())
+   }
 }
 
-export function* watchLoadClient () {
-    yield takeEvery(LOAD_CLIENTS, loadClientSaga)
-}
 
-export function* watchUserId () {
-    yield takeEvery('j', loadUserId)
-}
+export function* watchAddClient () { yield takeEvery(ADD_CLIENT, addClientSaga) } 
+export function* watchLoadClient () { yield takeEvery(LOAD_CLIENTS, loadClientSaga) }

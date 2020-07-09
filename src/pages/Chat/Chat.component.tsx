@@ -2,12 +2,12 @@ import React from 'react';
 
 import AdminLayout from 'src/hoc/AdminLayout';
  
-const Chats= () => {
+const Chat= () => {
     return (
         <AdminLayout>
-            <h1>Chats</h1>
+            <h1>Chat</h1>
         </AdminLayout>
     )
 }
 
-export default Chats;
+export default Chat;

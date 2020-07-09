@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 interface IProps {
-    loggedIn?: boolean
+    loggedIn: boolean
     component: React.FC,
     [x:string]: any
 }

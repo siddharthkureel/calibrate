@@ -14,13 +14,13 @@ import { useStyles } from './table.style';
 
 interface Data {
   name: string,
-  age: number,
+  age: number | "",
   gender: string,
-  height: number,
-  weight: number,
+  height: number | "",
+  weight: number | "",
   goal: string,
   email: string,
-  phone: number,
+  phone: number | "",
   payment: string
 }
 
@@ -48,6 +48,7 @@ function getComparator<Key extends keyof any>(
 function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
+    console.log(a[0],b[0])
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
@@ -58,17 +59,16 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
 type Props = {
   rows: Array<Data>,
   columns: Array<any>,
-  heading: string,
-  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>)=>void
+  heading: string
 }
  
-const EnhancedTable: React.FC<Props> = ({ rows, columns, heading, onSearchChange }) => {
+const EnhancedTable: React.FC<Props> = ({ rows, columns, heading }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('age');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -118,7 +118,7 @@ const EnhancedTable: React.FC<Props> = ({ rows, columns, heading, onSearchChange
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar heading={heading} numSelected={selected.length} onSearchChange={onSearchChange}/>
+        <EnhancedTableToolbar heading={heading} numSelected={selected.length} />
         <TableContainer>
           <Table
             className={classes.table}

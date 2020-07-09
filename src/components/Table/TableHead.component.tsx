@@ -8,18 +8,23 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useStyles } from './table.style';
 
 interface Data {
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
-  }
+  name: string,
+  age: number | "",
+  gender: string,
+  height: number | "",
+  weight: number | "",
+  goal: string,
+  email: string,
+  phone: number | "",
+  payment: string
+}
 
 interface HeadCell {
     disablePadding: boolean;
     id: keyof Data;
     label: string;
     numeric: boolean;
+    sort: boolean;
 }
 
 type Order = 'asc' | 'desc';
@@ -50,7 +55,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
           <TableCell padding="checkbox">
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={rowCount > 0 && numSelected === rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}    
               onChange={onSelectAllClick}
               inputProps={{ 'aria-label': 'select all desserts' }}
             />
@@ -58,14 +63,14 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
           {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
-              align={headCell.numeric ? 'right' : 'left'}
+              align={'left'}
               padding={headCell.disablePadding ? 'none' : 'default'}
               sortDirection={orderBy === headCell.id ? order : false}
             >
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : 'asc'}
-                onClick={createSortHandler(headCell.id)}
+                onClick={headCell.sort ? createSortHandler(headCell.id) : ()=>{}}
               >
                 {headCell.label}
                 {orderBy === headCell.id ? (

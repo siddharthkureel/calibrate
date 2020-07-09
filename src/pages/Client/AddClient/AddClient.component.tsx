@@ -4,22 +4,17 @@ import { Formik, Form } from 'formik';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Modal from 'src/components/Modal';
 import { clientActions } from 'src/redux/actions';
-import { firebase } from 'src/firebase';
-import { initialValues, validationSchema, Data } from './addClient.config';
+import { initialValues, validationSchema, Data, trim, capitalizeName } from './addClient.config';
 import { useStyles } from './addClient.styles';
 import Step1 from './Steps/Step1';
 import Step2 from './Steps/Step2';
 import Step3 from './Steps/Step3';
 
 const { addClient } = clientActions;
-
-type Props = {
-    addClient: (uid: string, data: Data) => {}
-}
 
 type FormProps = {
     errors: Data,
@@ -28,15 +23,16 @@ type FormProps = {
     resetForm: ()=>void
 }
 
+const AddClient = () => {
 
-const AddClient = (props: Props) => {
+    const classes = useStyles();
+    const dispatch = useDispatch();
     const [create, setCreate] = useState<boolean>(false);
     const [step, setStep] = useState<number>(1);
+    const valid = step - 1;
     const handleNext = () => {
        return setStep(step + 1)
     }
-    const classes = useStyles();
-    const valid = step - 1;
     const handleCancel = (resetForm: any) =>{
         setCreate(!create)
         resetForm()
@@ -58,6 +54,9 @@ const AddClient = (props: Props) => {
                         validationSchema = {validationSchema[valid]}
                         onSubmit={async (data, { setSubmitting })=>{
                             setSubmitting(true);
+                            trim(data)
+                            data.name = capitalizeName(data.name)
+                            dispatch(addClient(data))
                             setSubmitting(false);
                     }}
                     >{({ errors, isSubmitting, values, resetForm }: FormProps)=>{
@@ -98,4 +97,4 @@ const AddClient = (props: Props) => {
     )
 }
 
-export default connect(null, { addClient })(AddClient);
+export default AddClient;

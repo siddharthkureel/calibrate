@@ -1,3 +1,3 @@
-import Routes from './Routes.container';
+import Routes from './Routes.component';
 
 export default Routes

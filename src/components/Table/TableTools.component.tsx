@@ -6,11 +6,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import TextField from '@material-ui/core/TextField';
+
 import { useToolbarStyles } from './table.style';
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
     heading: string;
+    onSearchChange:(e: React.ChangeEvent<HTMLInputElement>)=>void
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
@@ -30,7 +33,8 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
             {heading}
             </Typography>
-        )}
+        )}        
+        <TextField onChange={props.onSearchChange} id="outlined-basic" label="search" variant="outlined" size="small"/>
         {numSelected > 0 ? (
             <Tooltip title="Delete">
             <IconButton aria-label="delete">

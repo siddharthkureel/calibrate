@@ -1,11 +1,14 @@
 import React from 'react';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ChatIcon from '@material-ui/icons/Chat';
+import KitchenIcon from '@material-ui/icons/Kitchen';
+
 import { PATHS } from '../../constants';
 
-const { CHATS, DASHBOARD, CLIENT, PROFILE } = PATHS;
+const { CHAT, DASHBOARD, CLIENT, PROFILE, TASK, NUTRITION } = PATHS;
 const { ROOT } = DASHBOARD;
 
 export const SideNavData = [
@@ -17,16 +20,26 @@ export const SideNavData = [
     {
         name: 'Clients',
         link: CLIENT,
-        logo: <BarChartIcon/>
+        logo: <PeopleIcon/>
+    },
+    {
+        name: 'Task',
+        link: TASK,
+        logo: <AssignmentIcon/>
+    },
+    {
+        name: 'Chat',
+        link: CHAT,
+        logo: <ChatIcon/>
+    },
+    {
+        name: 'Nutrition',
+        link: NUTRITION,
+        logo: <KitchenIcon/>
     },
     {
         name: 'Profile',
         link: PROFILE,
-        logo: <PeopleIcon/>
-    },
-    {
-        name: 'CHATS',
-        link: CHATS,
-        logo: <LayersIcon/>
+        logo: <AccountBoxIcon/>
     }
 ]
