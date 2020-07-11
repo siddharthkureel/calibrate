@@ -1,34 +1,45 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-
-import { USER_SIGNIN, USER_SIGNOUT, GET_USER } from 'src/constants';
-import { firebase, onAuthStateChanged  } from 'src/firebase';
+import { Auth } from 'aws-amplify';
+import { USER_SIGNIN, USER_SIGNOUT, GET_USER, USER_SIGNUP } from 'src/constants';
 import { userActions } from 'src/redux/actions';
 
-const { userSignSuccess, userSignInFailure } = userActions;
+const { userSignInSuccess, userSignInFailure, userSignUpSuccess, userSignUpFailure } = userActions;
 
 function* userSignIn (action: any) {
     try {
         const { email, password } =  action.payload;
-        const { user } = yield call([firebase.auth(),firebase.auth().signInWithEmailAndPassword], email, password)
-        yield put(userSignSuccess(user))
+        const user = yield Auth.signIn(email, password)
+        console.log(user)
+        yield put(userSignInSuccess(user))
     } catch (error) {
         yield put(userSignInFailure(error))
     }
 }
 
+function* userSignUp (action: any) {
+    try {
+        const { email, password } =  action.payload;
+        const user = yield Auth.signUp(email, password)
+        yield put(userSignUpSuccess(user))
+    } catch (error) {
+        yield put(userSignUpFailure(error))
+    }
+}
+
 function* userSignOut () {
-    yield call([firebase.auth(), firebase.auth().signOut])
+    yield Auth.signOut()
 }
 
 function* getUser () {
     try {
-        const user = yield call(onAuthStateChanged);
-        yield put(userSignSuccess(user))
+        const user = yield Auth.currentAuthenticatedUser()
+        yield put(userSignInSuccess(user))
     } catch (error) {
         yield put(userSignInFailure(error))
     }
 }
 
 export function* watchUserSignIn () { yield takeEvery(USER_SIGNIN, userSignIn) }
+export function* watchUserSignUp () { yield takeEvery(USER_SIGNUP, userSignUp) }
 export function* watchUserSignOut () { yield takeEvery(USER_SIGNOUT, userSignOut) }
 export function* watchGetUser () { yield takeEvery(GET_USER, getUser) }

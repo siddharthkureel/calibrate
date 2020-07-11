@@ -1,3 +1,3 @@
-import SideNav from './SideNav.container';
+import SideNav from './SideNav.component';
 
 export default SideNav;

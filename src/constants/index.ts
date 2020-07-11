@@ -28,10 +28,16 @@ export const LOAD_CLIENTS_FAILURE = 'LOAD_CLIENTS_FAILURE';
 export const ADD_CLIENT = 'ADD_CLIENT';
 export const ADD_CLIENT_SUCCESS = 'ADD_CLIENT_SUCCESS';
 export const ADD_CLIENT_FAILURE = 'ADD_CLIENT_FAILURE';
+
 //-------------------------->USER<--------------------------//
 export const GET_USER = 'GET_USER';
-export const USER_SIGNIN = 'USER_SIGNIN';
-export const USER_SIGNIN_SUCCESS = 'USER_SIGNED_SUCCESS';
-export const USER_SIGNIN_FAILURE = 'USER_SIGNED_FAILURE';
 export const USER_SIGNOUT = 'USER_SIGNOUT';
-export const USER_SIGNED_OUT = 'USER_SIGNED_OUT';
+
+export const USER_SIGNUP = 'USER_SIGNUP';
+export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
+export const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE';
+
+export const USER_SIGNIN = 'USER_SIGNIN';
+export const USER_SIGNIN_SUCCESS = 'USER_SIGNIN_SUCCESS';
+export const USER_SIGNIN_FAILURE = 'USER_SIGNIN_FAILURE';
+

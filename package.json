@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/bytebuffer": "^5.0.41",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.34",
     "@types/react": "^16.9.31",
@@ -17,7 +18,7 @@
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.3",
     "@types/yup": "^0.26.34",
-    "firebase": "^7.13.1",
+    "aws-amplify": "^3.0.20",
     "formik": "^2.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -27,14 +28,20 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",
-    "typescript": "^3.7.5",
+    "typescript": "^3.9.6",
     "yup": "^0.28.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && npm run lint",
+    "lint": "eslint src",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test && npm run lint"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,5 +57,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "husky": "^4.2.5"
   }
 }

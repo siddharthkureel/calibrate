@@ -5,6 +5,34 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Typography from '@material-ui/core/Typography';
 
+interface IProps {
+    step: number,
+    content: boolean,
+    orientation?: "horizontal" | "vertical",
+    getSteps: () => Array<string>,
+    getStepContent?: any
+}
+
+const VerticalLinearStepper: React.FC<IProps> = ({ step, content, orientation="horizontal", getStepContent, getSteps }) => {
+  const steps = getSteps();
+
+  return (
+      <Stepper  activeStep={step} orientation={orientation}>
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+              <StepContent>
+              {content&&
+                <Typography>{getStepContent(index)}</Typography>
+              }
+              </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+  );
+}
+
+export default VerticalLinearStepper;
 
 // function getSteps() {
 //   return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
@@ -27,32 +55,3 @@ import Typography from '@material-ui/core/Typography';
 //       return 'Unknown step';
 //   }
 // }
-
-type Props = {
-    step: number,
-    content: boolean,
-    orientation?: "horizontal" | "vertical",
-    getSteps: () => Array<string>,
-    getStepContent?: any
-}
-
-const VerticalLinearStepper: React.FC<Props> = ({ step, content, orientation="horizontal", getStepContent, getSteps }) => {
-  const steps = getSteps();
-
-  return (
-      <Stepper  activeStep={step} orientation={orientation}>
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-              <StepContent>
-              {content&&
-                <Typography>{getStepContent(index)}</Typography>
-              }
-              </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-  );
-}
-
-export default VerticalLinearStepper;

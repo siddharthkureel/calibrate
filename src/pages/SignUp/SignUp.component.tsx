@@ -1,8 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as yup from 'yup';
+import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,12 +16,12 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 import { PATHS } from 'src/constants';
-import { useStyles } from './signIn.style';
+import { useStyles } from './signUp.style';
 import { userActions } from 'src/redux/actions';
 import Footer from '../../components/Footer';
 
-const { SIGNUP } = PATHS; 
-const { userSignIn } = userActions;
+const { userSignUp } = userActions;
+const { SIGNIN } = PATHS;
 
 const validationSchema = yup.object({
     email: yup.string().email().required('Email is required'),
@@ -29,7 +29,7 @@ const validationSchema = yup.object({
     .min(8, 'Password is too short - should be 8 chars minimum.')
 })
 
-const SignIn = () => {
+const SignUp = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ const SignIn = () => {
             <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
             </Typography>
             <Formik 
             initialValues = {{
@@ -49,9 +49,9 @@ const SignIn = () => {
                 password: ''
             }}
             validationSchema = {validationSchema}
-            onSubmit={(data, { setSubmitting })=>{
+            onSubmit={async (data, { setSubmitting })=>{
                 setSubmitting(true);
-                dispatch(userSignIn(data));
+                dispatch(userSignUp(data));
                 setSubmitting(false);
             }}
             > 
@@ -83,26 +83,19 @@ const SignIn = () => {
                   placeholder="Password Address"
                   autoComplete="password"
               />
-              <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-              />
               <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-              >Sign In </Button>
+              >Sign Up </Button>
               <Grid container>
                   <Grid item xs>
-                  <Link to="#" >
-                      Forgot password?
-                  </Link>
                   </Grid>
                   <Grid item>
-                  <Link to={SIGNUP} >
-                      {"Don't have an account? Sign Up"}
+                  <Link to={SIGNIN}>
+                      {"Sign In"}
                   </Link>
                   </Grid>
               </Grid>
@@ -117,4 +110,4 @@ const SignIn = () => {
   );
 }
 
-export default SignIn;
+export default SignUp;

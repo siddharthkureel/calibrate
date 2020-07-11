@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -11,12 +11,12 @@ interface IListItem {
     logo: React.ReactElement
 }
 
-interface IProps extends RouteComponentProps<any>, React.Props<any> {
+interface IProps {
     Data: IListItem[]
 }
 
-const SideNav: React.FC<IProps> = (props) =>{
-    const { push } = props.history;
+const SideNav: React.FC<IProps> = (props) => {
+    const { push } = useHistory();
     return(
         <List>
         {props.Data.map(item=>(

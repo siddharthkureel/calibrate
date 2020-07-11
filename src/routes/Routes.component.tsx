@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { PATHS } from '../constants';
 import Home from '../pages/Home';
 import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
 import Chat from '../pages/Chat';
 import Profile from '../pages/Profile';
@@ -14,7 +15,7 @@ import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 import { getUserLoggedIn } from '../redux/selectors';
 
-const { DASHBOARD, HOME, SIGNIN, CHAT, PROFILE, CLIENT, TASK } = PATHS;
+const { DASHBOARD, HOME, SIGNIN, CHAT, PROFILE, CLIENT, TASK, SIGNUP } = PATHS;
 const { ROOT } = DASHBOARD;
 
 const Routes = () => {
@@ -27,7 +28,7 @@ const Routes = () => {
             <PrivateRoutes loggedIn={loggedIn} path={PROFILE} exact component={Profile} />
             <PrivateRoutes loggedIn={loggedIn} path={TASK} exact component={Task} />
             <PublicRoutes loggedIn={loggedIn} restricted={true} path={SIGNIN} exact component={SignIn} />
-            {/* <PublicRoutes loggedIn={loggedIn} restricted={true} path={SIGNUP} exact component={SignUp} /> */}
+            <PublicRoutes loggedIn={loggedIn} restricted={true} path={SIGNUP} exact component={SignUp} />
             <PublicRoutes loggedIn={loggedIn} restricted={false} path={HOME} exact component={Home} />
             {/* <PublicRoutes loggedIn={loggedIn} restricted={false} exact component={Error404} /> */}
         </Switch>
